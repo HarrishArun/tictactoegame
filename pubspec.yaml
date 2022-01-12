@@ -92,7 +92,10 @@ flutter:
    - assets/images/background.png
    - assets/images/award.png
    - assets/images/illustration.png
-   
+   - assets/images/gameover.png
+   - assets/images/lost.png
+   - assets/images/winner.png
+   - assets/images/tied.png
 
   # To add assets to your application, add an assets section, like this:
 

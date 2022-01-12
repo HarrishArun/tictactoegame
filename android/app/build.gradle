@@ -69,9 +69,4 @@ flutter {
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }
-   buildTypes {
-   release {
-        shrinkResources false
-        minifyEnabled false
-   }}
-
+   

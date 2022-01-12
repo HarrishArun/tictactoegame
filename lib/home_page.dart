@@ -68,8 +68,8 @@ class _HomePageState extends State<HomePage> {
         if (buttonsList.every((p) => p.text != "")) {
           showDialog(
               context: context,
-              builder: (_) => new CustomDialog("Game Tied",
-                  "Press the reset button to start again.", resetGame));
+              builder: (_) => new CustomDialog(
+                  "Game Tied", 'assets/images/tied.png', resetGame));
         } else {
           activePlayer == 2 ? autoPlay() : null;
         }
@@ -161,14 +161,14 @@ class _HomePageState extends State<HomePage> {
       if (winner == 1) {
         showDialog(
             context: context,
-            builder: (_) => new CustomDialog("Hurray!You Won",
-                "Press the reset button to start again.", resetGame));
+            builder: (_) => new CustomDialog(
+                "Hurray!You Won", 'assets/images/winner.png', resetGame));
         _winCounter();
       } else {
         showDialog(
             context: context,
-            builder: (_) => new CustomDialog("Oops Computer Won",
-                "Press the reset button to start again.", resetGame));
+            builder: (_) => new CustomDialog(
+                "Oops Computer Won", 'assets/images/lost.png', resetGame));
       }
     }
 
@@ -184,109 +184,106 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Flexible(
-        child: Scaffold(
-            appBar: AppBar(
-              title: const Text('Tic Tac Toe'),
-              backgroundColor: MainColor.secondaryColor,
-              elevation: 0,
-              actions: [
-                ChangeThemeButton(),
-                IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pushAndRemoveUntil(
-                        MaterialPageRoute(
-                          builder: (context) => OnBoardingPage(),
-                        ),
-                        (Route<dynamic> route) => false,
-                      );
-                    },
-                    icon: Icon(Icons.help)),
-              ],
-            ),
-            body: Container(
-              decoration: const BoxDecoration(
-                  image: DecorationImage(
-                      image: AssetImage('assets/images/background.png'),
-                      fit: BoxFit.cover)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Image.asset(
-                    'assets/images/illustration.png',
-                    height: 200.0,
-                    scale: 1,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 50,
-                    width: 30,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset('assets/images/win.png'),
-                        Text(
-                          '$_counter',
-                          style: Theme.of(context).textTheme.headline4,
-                        )
-                      ],
+    return new Scaffold(
+        appBar: AppBar(
+          title: const Text('Tic Tac Toe'),
+          backgroundColor: MainColor.secondaryColor,
+          elevation: 0,
+          actions: [
+            ChangeThemeButton(),
+            IconButton(
+                onPressed: () {
+                  Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => OnBoardingPage(),
                     ),
-                  ),
-                  Expanded(
-                    child: Container(
-                      child: GridView.builder(
-                        padding: const EdgeInsets.all(45.0),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisCount: 3,
-                                childAspectRatio: 1.0,
-                                crossAxisSpacing: 9,
-                                mainAxisSpacing: 9),
-                        itemCount: buttonsList.length,
-                        itemBuilder: (context, i) => SizedBox(
-                          width: 100.0,
-                          height: 100.0,
-                          child: ElevatedButton(
-                              onPressed: buttonsList[i].enabled
-                                  ? () => playGame(buttonsList[i])
-                                  : null,
-                              child: Text(
-                                buttonsList[i].text,
-                                style: TextStyle(
-                                    color: buttonsList[i].bg, fontSize: 64.0),
-                              ),
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all(
-                                      MainColor.secondaryColor),
-                                  elevation: MaterialStateProperty.all(0))),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 50.0,
-                    color: MainColor.primaryColor,
-                    child: ElevatedButton.icon(
-                        icon: Icon(
-                          Icons.replay,
-                        ),
-                        onPressed: resetGame,
-                        label: Text(
-                          'Reset',
-                          style: TextStyle(fontSize: 15),
-                        ),
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(
-                              MainColor.secondaryColor),
-                          elevation: MaterialStateProperty.all(0),
-                        )),
-                  ),
-                ],
+                    (Route<dynamic> route) => false,
+                  );
+                },
+                icon: Icon(Icons.help)),
+          ],
+        ),
+        body: Container(
+          decoration: const BoxDecoration(
+              image: DecorationImage(
+                  image: AssetImage('assets/images/background.png'),
+                  fit: BoxFit.cover)),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Image.asset(
+                'assets/images/illustration.png',
+                height: 200.0,
+                scale: 1,
               ),
-            )),
-      ),
-    );
+              Container(
+                alignment: Alignment.center,
+                height: 50,
+                width: 30,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Image.asset('assets/images/win.png'),
+                    Text(
+                      '$_counter',
+                      style: Theme.of(context).textTheme.headline4,
+                    )
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Container(
+                  child: GridView.builder(
+                    physics: NeverScrollableScrollPhysics(),
+                    padding: const EdgeInsets.all(45.0),
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 3,
+                            childAspectRatio: 1.0,
+                            crossAxisSpacing: 9,
+                            mainAxisSpacing: 9),
+                    itemCount: buttonsList.length,
+                    itemBuilder: (context, i) => SizedBox(
+                      width: 100.0,
+                      height: 100.0,
+                      child: ElevatedButton(
+                          onPressed: buttonsList[i].enabled
+                              ? () => playGame(buttonsList[i])
+                              : null,
+                          child: Text(
+                            buttonsList[i].text,
+                            style: TextStyle(
+                                color: buttonsList[i].bg, fontSize: 64.0),
+                          ),
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(
+                                  MainColor.secondaryColor),
+                              elevation: MaterialStateProperty.all(0))),
+                    ),
+                  ),
+                ),
+              ),
+              Container(
+                height: 50.0,
+                color: MainColor.primaryColor,
+                child: ElevatedButton.icon(
+                    icon: Icon(
+                      Icons.replay,
+                    ),
+                    onPressed: resetGame,
+                    label: Text(
+                      'Reset',
+                      style: TextStyle(fontSize: 15),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(MainColor.secondaryColor),
+                      elevation: MaterialStateProperty.all(0),
+                    )),
+              ),
+            ],
+          ),
+        ));
   }
 }

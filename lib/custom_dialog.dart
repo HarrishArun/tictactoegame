@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class CustomDialog extends StatelessWidget {
   final title;
-  final content;
+  final url;
   final VoidCallback callback;
   final actionText;
-  CustomDialog(this.title, this.content, this.callback,
+  CustomDialog(this.title, this.url, this.callback,
       [this.actionText = 'Reset']);
 
   @override
@@ -13,10 +13,9 @@ class CustomDialog extends StatelessWidget {
     return AlertDialog(
       insetPadding: EdgeInsets.all(50.0),
       title: Text(title, style: TextStyle(color: Colors.yellow)),
-      content: Text(
-        content,
-      ),
+      //  content: Text(url),
       actions: [
+        Image.asset(url),
         ElevatedButton.icon(
             icon: Icon(
               Icons.replay,
@@ -31,3 +30,5 @@ class CustomDialog extends StatelessWidget {
     );
   }
 }
+
+Widget buildImage(String path) => Center(child: Image.asset(path, width: 350));
